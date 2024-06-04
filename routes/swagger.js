@@ -9,8 +9,17 @@ const options = {
         },
         components: {
             schemas: {
-                // Your schemas will be added here
-            }
+                UploadRequest: {
+                    type: 'object',
+                    properties: {
+                        csvFile: {
+                            type: 'string',
+                            format: 'binary', // Optional for better Swagger UI display
+                        },
+                    },
+                    required: ['csvFile'],
+                },
+            },
         },
         basePath: '/',
     },
@@ -20,3 +29,5 @@ const options = {
 const specs = swaggerJsdoc(options);
 
 module.exports = specs;
+
+

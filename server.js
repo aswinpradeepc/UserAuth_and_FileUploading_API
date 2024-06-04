@@ -20,7 +20,6 @@ app.use('/api/csv', csvUploadRouter);
 app.use('/api/status', statusRouter);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
-
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());

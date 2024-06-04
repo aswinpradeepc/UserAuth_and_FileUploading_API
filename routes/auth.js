@@ -137,6 +137,7 @@ router.post('/register', async (req, res) => {
  *         description: Internal Server Error
  */
 
+
 // User login
 router.post('/login', async (req, res) => {
     try {

@@ -25,6 +25,18 @@ Set up environment variables:
    JWT_SECRET=your_super_secret_key
    ```
 
+## Server
+- <b>Process Management with PM2</b><br>
+To ensure the API runs reliably and efficiently, we have integrated PM2, a process manager for Node.js applications. PM2 provides numerous benefits, including automatic restarts on crashes, load balancing across multiple CPU cores, and easy monitoring.
+
+Script to start the server:
+   ```
+    npm run start:prod
+   ```
+- <b>Logging</b><br>
+HTTP request logging is set up using Morgan to provide detailed request logs for better debugging and monitoring.
+
+
 ## API Endpoints
 
 ### User Authentication
@@ -74,12 +86,14 @@ We use Bull, a Redis-based queue library, to handle the asynchronous processing 
 
 ## API Documentation
 
-Swagger (OpenAPI) to provide interactive API documentation. 
 
-- Access Swagger UI: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+Swagger (OpenAPI) to provide interactive API documentation.
+- Access Swagger UI: [https://test.radr.in/api-docs](https://test.radr.in/api-docs)
 
 ## Security
 
 - Passwords are hashed using bcrypt.
 - JWT is used for stateless authentication.
 - CORS is configured to restrict origins.
+

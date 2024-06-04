@@ -16,8 +16,20 @@ const storage = multer.diskStorage({
     }
 });
 
-// Initialize the multer upload instance
-const upload = multer({ storage });
+// Initialize the multer upload instance with size limit and file type check
+const upload = multer({
+    storage,
+    limits: {
+        fileSize: 150 * 1024 * 1024 // 150 MB, matching your Nginx setting
+    },
+    fileFilter: (req, file, cb) => {
+        if (path.extname(file.originalname).toLowerCase() === '.csv') {
+            cb(null, true);
+        } else {
+            cb(new Error('Only CSV files are allowed'), false);
+        }
+    }
+});
 
 /**
  * @swagger

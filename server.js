@@ -6,6 +6,8 @@ const authRoutes = require('./routes/auth');
 const csvUploadRouter = require('./routes/csvUploadRouter');
 const statusRouter = require('./routes/statusRouter');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./routes/swagger');
 
 const app = express();
 
@@ -16,7 +18,7 @@ app.use('/uploads', express.static('uploads'));
 app.use('/api/auth', authRoutes);
 app.use('/api/csv', csvUploadRouter);
 app.use('/api/status', statusRouter);
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 
 const PORT = process.env.PORT || 3000;

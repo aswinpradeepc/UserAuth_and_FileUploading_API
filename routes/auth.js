@@ -7,6 +7,66 @@ const User = require('../models/user');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         username:
+ *           type: string
+ *           description: The user's username
+ *         password:
+ *           type: string
+ *           description: The user's password (hashed)
+ *     AuthResponse:
+ *       type: object
+ *       properties:
+ *         message:
+ *           type: string
+ *           description: Response message
+ *         token:
+ *           type: string
+ *           description: JWT token (only in successful login response)
+ */
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       400:
+ *         description: Bad request (missing fields or username already exists)
+ *       500:
+ *         description: Internal Server Error
+ */
+
 // User registration
 router.post('/register', async (req, res) => {
     try {
@@ -41,6 +101,41 @@ router.post('/register', async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Log in a user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/AuthResponse'
+ *       400:
+ *         description: Bad request (missing fields)
+ *       401:
+ *         description: Unauthorized (invalid username or password)
+ *       500:
+ *         description: Internal Server Error
+ */
 
 // User login
 router.post('/login', async (req, res) => {

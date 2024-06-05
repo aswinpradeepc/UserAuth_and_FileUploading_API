@@ -46,6 +46,21 @@ mongoose.connect(process.env.MONGO_URI).then(() => {
     console.error('Failed to connect to MongoDB', err);
 });
 
+app.use((req, res, next) => {
+    res.status(404).send({ error: 'Not Found', message: 'The requested resource could not be found.' });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send({ error: 'Internal Server Error', message: 'Something went wrong!' });
+});
+
+// Fallback route
+app.all('*', (req, res) => {
+    res.status(404).send({ error: 'Not Found', message: 'The requested resource could not be found.' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
